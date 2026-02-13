@@ -14,6 +14,29 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker.min.css">
   <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker.min.js"></script>
 
+  <!-- google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Londrina+Shadow&family=Questrial&display=swap&display=swap" rel="stylesheet">
+
+  <!-- animate css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <!-- custom css -->
+  <style>
+    h1.greeting {
+      font-family: 'Londrina Shadow';
+      color: slategray;
+      font-size: 3.5em;
+      display: inline-block;
+    }
+    body {
+      font-family: 'Questrial';
+    }
+
+    .ball{
+      visibility: hidden;
+    }
+  </style>
+
   <!-- custom js -->
   <script src="balloons.js"></script>
 
@@ -22,7 +45,7 @@
 
      <!-- content -->
   <div class="container">
-    <h1>Happy Birthday!</h1><hr />
+    <h1 class="greeting" id="greeting">Happy Birthday!</h1><hr />
       <form role="form">
       <div class="row">
         <div class="col">
@@ -34,9 +57,37 @@
             <input type="text" class="form-control" id="dob" placeholder="Enter DOB">
             <label for="dob">Birthday</label>
           </div>
+          <div class="card mt-4">
+           <div class="card-body" id="checkbox-card">
+              <h5 class="card-title">Select your favorite balloons</h5>
+
+              <div class="form-check mb-2">
+                <input type="checkbox" class="form-check-input" id="selectAll">
+                <label class="form-check-label fw-bold" for="selectAll">
+                  Select / Deselect All
+                </label>
+              </div>
+              <hr>
+
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="red">
+                <label class="form-check-label" for="red" data-color="red">Red balloons</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="green">
+                <label class="form-check-label" for="green" data-color="green">Green balloons</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="blue">
+                <label class="form-check-label" for="blue" data-color="blue">Blue balloons</label>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-primary mt-3"
+          id="submit">Submit</button>
         </div>
         <div class="col">
-          <img src="media/balloon-orange.png" class="ball" alt="balloon-orange" id="orangImg" />
+          <img src="media/balloon-orange.png" class="ball" alt="balloon-orange" id="redImg" />
           <img src="media/balloon-green.png" class="ball" alt="balloon-green" id="greenImg" />
           <img src="media/balloon-blue.png" class="ball" alt="balloon-blue" id="blueImg" />
         </div>
@@ -44,5 +95,16 @@
     </form>
   </div>
   
+<!-- Toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="balloonToast" class="toast align-items-center text-bg-danger border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body">
+        Please select at least one balloon!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -5,4 +5,81 @@ document.addEventListener("DOMContentLoaded", function() {
     autohide: true,
     format: 'MM-dd'
   });
+
+  // uncheck all boxes by default (Firefox)
+  document.querySelectorAll('.form-check-input').forEach(c => c.checked = false);
+
+  //Randomize attention 
+   const attentionSeekers = [
+  'animate__bounce',
+  'animate__flash',
+  'animate__pulse',
+  'animate__rubberBand',
+  'animate__shakeX',
+  'animate__shakeY',
+  'animate__headShake',
+  'animate__swing',
+  'animate__tada',
+  'animate__wobble',
+  'animate__jello',
+  'animate__heartBeat'
+ ];
+
+ const greeting = document.getElementById('greeting');
+ const randomAnimation = attentionSeekers[Math.floor(Math.random() * attentionSeekers.length)];
+ greeting.classList.add('animate__animated', randomAnimation);
+ 
+
+ // Animae baloons on check/uncheck
+   document.getElementById("checkbox-card").addEventListener("change", function (e) {
+    if (!e.target.classList.contains("form-check-input")) return;
+    if (e.target.id === "selectAll") return;
+
+    const img = document.getElementById(e.target.id + "Img");
+    if (!img) return;
+
+    img.style.visibility = "visible";
+    img.classList.remove("animate__animated", "animate__bounceInDown", "animate__bounceOutUp");
+
+    if (e.target.checked) {
+      img.classList.add("animate__animated", "animate__bounceInDown");
+    } else {
+      img.classList.add("animate__animated", "animate__bounceOutUp");
+    }
+  });
+
+  // Toast if submit clicked with no balloons selected
+  document.getElementById("submit").addEventListener("click", function () {
+    const checkedBalloons = document.querySelectorAll(
+      ".form-check-input:checked:not(#selectAll)"
+    );
+
+    if (checkedBalloons.length === 0) {
+      const toastElement = document.getElementById("balloonToast");
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
+  });
+
+  // Select/Deselect all balloons
+  document.getElementById("selectAll").addEventListener("change", function () {
+    const checkboxes = document.querySelectorAll(".form-check-input:not(#selectAll)");
+
+    checkboxes.forEach(cb => {
+      cb.checked = this.checked;
+      cb.dispatchEvent(new Event("change"));
+    });
+  });
+
+  // Change greeting color on label hover
+  const labels = document.querySelectorAll(".form-check-label[data-color]");
+  labels.forEach(label => {
+    label.addEventListener("mouseenter", function () {
+      greeting.style.color = this.dataset.color;
+    });
+
+    label.addEventListener("mouseleave", function () {
+      greeting.style.color = "slategray";
+    });
+  });
 });
